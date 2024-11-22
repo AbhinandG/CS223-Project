@@ -1,13 +1,3 @@
-,
-student_ID,name 
-ST2345,Sarah Johnson
-ST3456,Michael Brown
-ST4567,Emily Davis
-ST5678,James Wilson
-ST6789,Olivia Martinez
-ST7890,Daniel GarciaST2345,Sarah Johnson
-ST3456,Michael Brown
-ST2345,Sarah Johnson
-ST3456,Michael Brown
-ST2345,Sarah Johnson
-ST3456,Michael Brown
+student_ID,name
+1001,Alice
+1002,Bob
