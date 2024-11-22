@@ -1,5 +1,3 @@
-# metrics.py
-
 import time
 from threading import Lock
 

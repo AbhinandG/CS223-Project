@@ -1,5 +1,3 @@
-# database.py
-
 import csv
 from collections import defaultdict
 from readerwriterlock.rwlock import RWLockWrite

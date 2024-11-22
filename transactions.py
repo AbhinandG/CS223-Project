@@ -1,5 +1,3 @@
-# transactions.py
-
 import time
 
 

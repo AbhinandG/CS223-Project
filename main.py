@@ -1,4 +1,3 @@
-# main.py
 import random
 import time
 from database import Node
