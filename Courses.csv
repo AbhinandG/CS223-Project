@@ -1,3 +1,5 @@
 course_ID,class_size,department,name
 101,30,CS,Intro to Programming
 102,25,Math,Calculus I
+1201,30,CS,Intro to Java
+1202,25,Math,Calculus II

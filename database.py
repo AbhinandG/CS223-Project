@@ -29,7 +29,6 @@ class Node:
         print("Lock released")
 
     def load_csv(self, table):
-        """ Load data from the CSV file for the given table """
         try:
             with open(f"{table}.csv", 'r') as f:
                 reader = csv.reader(f)

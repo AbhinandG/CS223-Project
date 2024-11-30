@@ -6,6 +6,20 @@ class TransactionManager:
         self.scheduler = scheduler
         self.transaction_count = 1
 
+    def create_dynamic_transaction(self, operations):
+        transaction_id = self.transaction_count
+        self.transaction_count += 1
+        transaction = []
+        for index, operation in enumerate(operations, start=1):
+            transaction.append({
+                "node": operation["node"],
+                "operation": operation["operation"],
+                "args": operation["args"],
+                "id": f"T{transaction_id}{index}"
+            })
+        return transaction
+
+
     def add_course(self, course_id, class_size, department, name):
         transaction_id = self.transaction_count
         self.transaction_count += 1
