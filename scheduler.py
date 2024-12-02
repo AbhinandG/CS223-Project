@@ -1,6 +1,7 @@
 from metrics import Metrics
 import threading
 import time
+from concurrent.futures import ThreadPoolExecutor
 
 class Scheduler:
     def __init__(self, nodes):
@@ -115,6 +116,21 @@ class Scheduler:
 
         self.execute_chains(chains)
     
+    def execute_limited_chains(self, chains, max_threads):
+        max_hops = max(len(chain) for chain in chains)
+        with ThreadPoolExecutor(max_workers=max_threads) as executor:
+            for hop_index in range(max_hops):
+                futures = []
+                for chain in chains:
+                    if hop_index < len(chain):
+                        hop = chain[hop_index]
+                        if hop["id"] not in self.completed_transactions:
+                            self.completed_transactions.add(hop["id"])
+                            futures.append(executor.submit(self.execute_hop, hop))
+                for future in futures:
+                    future.result()
+
+
     def handle_sc_cycle(self, chains, new_transaction):
         if new_transaction is None:
             print("No new transaction to handle during SC-cycle")
@@ -127,7 +143,8 @@ class Scheduler:
         dependent_chain = self.get_dependent_chain(chains, new_transaction)
         if dependent_chain:
             print(f"Waiting for {dependent_chain} to complete before proceeding with {new_transaction}")
-            self.execute_chains_concurrently([dependent_chain])  
+            self.execute_limited_chains([dependent_chain], max_threads=50) 
+            #self.execute_chains_concurrently([dependent_chain])  
             chains.append(new_transaction)  
     
     def get_dependent_chain(self, chains, new_transaction):
